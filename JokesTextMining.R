@@ -38,3 +38,7 @@ inspect(dtm)
 
 smallDtm <- removeSparseTerms(dtm, .9)
 inspect(smallDtm)
+
+jokes.df$body <- data.frame(text = unlist(sapply(jokes.corpus, `[`, "content")), stringsAsFactors = F)
+
+# Fix spelling mistakes?
