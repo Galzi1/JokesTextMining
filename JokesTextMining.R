@@ -26,3 +26,15 @@ jokes.df <- subset(jokes.df, rating != 0.00 & rating != 1.00 & rating != 2.00
 jokes.df <- jokes.df[!duplicated(jokes.df$body),]
 
 # Regular text mining stuff
+jokes.corpus <- VCorpus(VectorSource(jokes.df$body))
+jokes.corpus <- tm_map(jokes.corpus, stripWhitespace)
+jokes.corpus <- tm_map(jokes.corpus, removePunctuation)
+jokes.corpus <- tm_map(jokes.corpus, content_transformer(tolower))
+jokes.corpus <- tm_map(jokes.corpus, removeWords, stopwords("english"))
+jokes.corpus <- tm_map(jokes.corpus, stemDocument)
+
+dtm <- DocumentTermMatrix(jokes.corpus)
+inspect(dtm)
+
+smallDtm <- removeSparseTerms(dtm, .9)
+inspect(smallDtm)
