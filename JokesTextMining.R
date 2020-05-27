@@ -30,15 +30,19 @@ jokes.df <- jokes.df[!duplicated(jokes.df$body),]
 # Fix spelling in jokes (mainly to eliminate false diffrentiation of words that originated in spelling mistakes)
 sapply(jokes.df$body, which_misspelled)
 
+#TODO Add sentiment/polarity of the joke (or sentences in it) as a variable in the dataframe
+
 # Convert into corpus
 jokes.corpus <- VCorpus(VectorSource(jokes.df$body))
 
 # Remove whitespaces
 jokes.corpus <- tm_map(jokes.corpus, stripWhitespace)
 
+#TODO Consider keeping punctuations, or at least '!' and '?' characters that can alter the whole sentence meaning
 # Remove punctuation
 jokes.corpus <- tm_map(jokes.corpus, removePunctuation)
 
+#TODO Consider keeping all-caps words (they can possibly make the joke funny/not funny)
 # Convert to lower case
 jokes.corpus <- tm_map(jokes.corpus, content_transformer(tolower))
 
