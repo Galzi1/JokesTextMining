@@ -19,6 +19,7 @@ library(rvest)
 library(dplyr)
 library(splitstackshape)
 library(textstem)
+library(forcats)
 
 ### Custom Functions:
 
@@ -74,10 +75,15 @@ jokes.df <- na.omit(jokes.df)
 # Remove jokes with empty body
 jokes.df <- subset(jokes.df, body != "")
 
-# Remove jokes with whole number rating (eg. 0.0, 3.0, 5.0) - likely indicates very low number of votes
+ggplot(jokes.df, aes(x = fct_infreq(factor(category)))) +
+  geom_bar(width=0.7, fill="steelblue") + 
+  xlab("category") + 
+  coord_flip()
+
+# Remove jokes with whole number rating (eg. 0.0, 3.0, 5.0) or exactly in-half (eg. 1.5, 3.5)
+# These ratings likely indicates very low number of votes
 jokes.df <- subset(jokes.df, rating != 0.00 & rating != 1.00 & rating != 2.00
                    & rating != 3.00 & rating != 4.00 & rating != 5.00)
-
 jokes.df <- subset(jokes.df, rating != 1.50 & rating != 2.50
                    & rating != 3.50 & rating != 4.5)
 
@@ -93,6 +99,11 @@ jokes.df <- jokes.df[!duplicated(jokes.df$body),]
 #TODO plots that describe the jokes rating (distribution)
 # ggplot(jokes.df, aes(x = rating)) + 
 #   geom_density(color = "darkblue", fill = "lightblue")
+
+ggplot(jokes.df, aes(x = fct_infreq(factor(category)))) +
+  geom_bar(width=0.7, fill="steelblue") + 
+  xlab("category") + 
+  coord_flip()
 
 #TODO Add sentiment/polarity of the joke (or sentences in it) as a variable in the dataframe
 
