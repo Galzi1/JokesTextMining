@@ -1,0 +1,28 @@
+Predictive
+Can we predict a juke score by its text?
+
+Classification or Regression? -> Classification needs to transform by 3
+if Reg (later stage if required -> cost / metric function RMSE MAE)
+
+Come up with "most" features:
+- number of words
+- number of characters
+- number of sentences
+- number of punctuations
+- number of all CAPS-LOCK words
+- ratio of all CAPS-LOCK words to total words
+- number of stopwords
+- mean length of words
+- number of syntax errors
+- number of slang words
+- number of new-lines
+- specific punctuations: ?, !
+- repetition of words
+- 
+
+[avoid both an absolute number *and* a ratio features of the same statistic]
+[partition across different categories]
+
+BoW, TF-IDF, ? (should be driven from what we learned at class)
+
+GridSearchCV - algos...
