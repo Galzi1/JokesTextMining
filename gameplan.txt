@@ -34,16 +34,16 @@ Visualization:
 	* with BoW without .0 and .5 scores
 	* without BoW without .0 and .5 scores
 - Distribution density of ratings
-	* "vanilla"
-	* without .0 and .5 scores
+	* "vanilla" 					V
+	* without .0 and .5 scores				V
 - Descriptive statistics
-	* "vanilla"
-	* without .0 and .5 scores
+	* "vanilla"					V
+	* without .0 and .5 scores				V
 - Number of jokes in each category
-	* "vanilla"
-	* without .0 and .5 scores
+	* "vanilla"					V
+	* without .0 and .5 scores				V
 - Term frequency
-	* "vanilla"
+	* after stemming
 	* after lemmatization
 - TFxIDF
 - Word cloud after lemmatization
