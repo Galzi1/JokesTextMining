@@ -26,3 +26,27 @@ Come up with "most" features:
 BoW, TF-IDF, ? (should be driven from what we learned at class)
 
 GridSearchCV - algos...
+
+Visualization:
+- Distribution of predicted ratings vs actual ratings
+	* with BoW
+	* without BoW
+	* with BoW without .0 and .5 scores
+	* without BoW without .0 and .5 scores
+- Distribution density of ratings
+	* "vanilla"
+	* without .0 and .5 scores
+- Descriptive statistics
+	* "vanilla"
+	* without .0 and .5 scores
+- Number of jokes in each category
+	* "vanilla"
+	* without .0 and .5 scores
+- Term frequency
+	* "vanilla"
+	* after lemmatization
+- TFxIDF
+- Word cloud after lemmatization
+- Correlation matrix after lemmatization
+- Word clusters after lemmatization
+	
