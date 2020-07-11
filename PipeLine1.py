@@ -26,6 +26,7 @@ ps = nltk.PorterStemmer()
 
 
 import pandas as pd
+import numpy as np
 data = pd.read_json("stupidstuff.json")
 
 
@@ -198,21 +199,25 @@ def stopwords_cleaner(text):
 
 
 # In[19]:
+def stem_text(text):
+    stem_words = np.vectorize(ps.stem)
+    words = nltk.word_tokenize(text)
+    text = ' '.join(stem_words(words))
+    return text
 
 
 data['body_no_punct'] = data['body_no_punct'].apply(to_lowercase)
 data['body_no_punct'] = data['body_no_punct'].apply(stopwords_cleaner)
 data['body_no_punct'] = data['body_no_punct'].apply(remove_special_characters)
 data['body_no_punct'] = data['body_no_punct'].apply(remove_numbers)
+data['body_no_punct'] = data['body_no_punct'].apply(stem_text)
 
 
 # In[20]:
-def stem_text(text):
-    text = [ps.stem(word) for word in text]
-    return text
 
 
-Bow = CountVectorizer(analyzer=stem_text)
+
+Bow = CountVectorizer(max_features=1000, ngram_range=(1, 2))
 Bow.fit(data['body_no_punct'])
 # X_Bow = Bow.fit_transform(data['body_no_punct'])
 
@@ -290,7 +295,7 @@ from sklearn.metrics import mean_absolute_error, accuracy_score, confusion_matri
 # In[30]:
 
 
-X_train, X_test, y_train, y_test = train_test_split(X_Data, data['rating'], test_size=0.7)
+X_train, X_test, y_train, y_test = train_test_split(X_Data, data['rating'], test_size=0.2)
 
 X_train_text = X_train['body_no_punct']
 X_train_feats = X_train.drop('body_no_punct', axis=1)
@@ -374,7 +379,7 @@ Y_Subset_ = y_train[0::17]
 
 import scipy.stats as st
 import matplotlib.pyplot as plt
-import numpy as np
+
 from IPython import get_ipython
 get_ipython().run_line_magic('matplotlib', 'inline')
 plt.hist(y_test, density=True, bins=30, label="Data")
